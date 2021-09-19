@@ -4,12 +4,14 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using medievalworldweb.Dtos.Fight;
 using medievalworldweb.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace medievalworldweb.Controllers
 {
+    [Authorize]
     [EnableCors]
     [ApiController]
     [Route("[controller]")]
