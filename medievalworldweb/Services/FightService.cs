@@ -20,16 +20,18 @@ namespace medievalworldweb.Services
         #region Private Fields
         private readonly IFightRepository _fightRepository;
         private readonly ICharacterRepository _characterRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ISqlService _sqlService;
-        private readonly IMapper _mapper; 
+        private readonly IMapper _mapper;
         #endregion
 
         #region Public Methods
-        public FightService(IFightRepository fightRepository, ICharacterRepository characterRepository, ISqlService sqlService, IMapper mapper)
+        public FightService(IFightRepository fightRepository, ICharacterRepository characterRepository, IUserRepository userRepository, ISqlService sqlService, IMapper mapper)
         {
             _mapper = mapper;
             _fightRepository = fightRepository;
             _characterRepository = characterRepository;
+            _userRepository = userRepository;
             _sqlService = sqlService;
         }
 
@@ -222,6 +224,13 @@ namespace medievalworldweb.Services
         {
             ServiceResponse<List<GetFightTallyDto>> response = new ServiceResponse<List<GetFightTallyDto>>();
             List<GetFightTallyDto> fightTally = new List<GetFightTallyDto>();
+            var user = await _userRepository.GetUserById(userId);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found";
+                return response;
+            }
             var allCharacters = await _characterRepository.GetAllCharacters(x => x.User.Id == userId, x => new Character
             {
                 Name = x.Name,
@@ -281,6 +290,13 @@ namespace medievalworldweb.Services
         public async Task<ServiceResponse<List<GetFighterDto>>> GetFightersForUser(int userId)
         {
             ServiceResponse<List<GetFighterDto>> response = new ServiceResponse<List<GetFighterDto>>();
+            var user = await _userRepository.GetUserById(userId);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found";
+                return response;
+            }
             var fighters = await _fightRepository.GetAllFighters(x => x.User.Id == Convert.ToInt32(userId), x => x);
             response.Data = new List<GetFighterDto>();
             response.Data = _mapper.Map<List<GetFighterDto>>(fighters);

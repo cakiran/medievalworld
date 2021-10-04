@@ -55,12 +55,22 @@ namespace medievalworldweb.Controllers
         [HttpGet, Route("Fighttally/{userId:int}")]
         public async Task<IActionResult> GetFightTally(int userId)
         {
-            return Ok(await _fightService.GetFightTally(userId));
+            var response = await _fightService.GetFightTally(userId);
+            if (!response.Success)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, response.Message);
+            }
+            return Ok(response);
         }
         [HttpGet, Route("Fightdetail")]
         public async Task<IActionResult> GetFightAttachDetails()
         {
-            return Ok(await _fightService.GetFightAttackDetails());
+            var response = await _fightService.GetFightAttackDetails();
+            if (!response.Success)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, response.Message);
+            }
+            return Ok(response);
         }
         [HttpGet, Route("Fighters")]
         public async Task<IActionResult> GetFighters()

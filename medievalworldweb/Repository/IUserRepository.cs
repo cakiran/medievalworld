@@ -9,6 +9,7 @@ namespace medievalworldweb.Repository
     public interface IUserRepository
     {
         Task<User> GetUser(string userName);
+        Task<User> GetUserById(int userId);
         Task Adduser(User user);
     }
 
@@ -22,6 +23,12 @@ namespace medievalworldweb.Repository
         public async Task<User> GetUser(string userName)
         {
             var user = await SingleOrDefaultAsync<User, User>(x => x.Username.ToLower().Equals(userName.ToLower()), x => x);
+            return user;
+        }
+
+        public async Task<User> GetUserById(int userId)
+        {
+            var user = await SingleOrDefaultAsync<User, User>(x => x.Id == userId, x => x);
             return user;
         }
     }
