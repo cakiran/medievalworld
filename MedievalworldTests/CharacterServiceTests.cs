@@ -40,5 +40,20 @@ namespace MedievalworldTests
             //assert
             Assert.That(res.Success == false);
         }
+
+        [Test]
+        public async Task GetCharacterById_WhenNoCharacterIsReturned_ServiceResponseFailsTwice()
+        {
+            //arrange
+            var loggerMock = new Mock<IMapper>();
+            var characterRepoMock = new Mock<ICharacterRepository>();
+            Character c = null;
+            characterRepoMock.Setup(x => x.GetCharacterById(It.IsAny<int>())).ReturnsAsync(c);
+            var _target = new CharacterService(loggerMock.Object, characterRepoMock.Object);
+            //act
+            var res = await _target.GetCharacterById(It.IsAny<int>());
+            //assert
+            Assert.That(res.Success == false);
+        }
     }
 }
