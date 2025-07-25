@@ -33,6 +33,16 @@ namespace medievalworldweb.Controllers
             return Ok(response);
         }
 
+         [HttpPost, Route("WeaponFeature")]
+        public async Task<IActionResult> WeaponAttackFeature([FromBody] WeaponAttackDto weaponAttackDto)
+        {
+            var response = await _fightService.WeaponAttack(weaponAttackDto);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
         public async Task<IActionResult> EffectiveWeaponAttack([FromBody] WeaponAttackDto weaponAttackDto)
         {
             var response = await _fightService.WeaponAttack(weaponAttackDto);
