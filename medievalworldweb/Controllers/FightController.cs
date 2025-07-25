@@ -32,8 +32,8 @@ namespace medievalworldweb.Controllers
             }
             return Ok(response);
         }
-         [HttpPost, Route("Weapon")]
-        public async Task<IActionResult> NewWeaponAttack([FromBody] WeaponAttackDto weaponAttackDto)
+
+        public async Task<IActionResult> EffectiveWeaponAttack([FromBody] WeaponAttackDto weaponAttackDto)
         {
             var response = await _fightService.WeaponAttack(weaponAttackDto);
             if (!response.Success)
@@ -42,7 +42,7 @@ namespace medievalworldweb.Controllers
             }
             return Ok(response);
         }
-        
+
         [HttpPost, Route("Skill")]
         public async Task<IActionResult> SkillAttack([FromBody] SkillAttackDto skillAttackDto)
         {
