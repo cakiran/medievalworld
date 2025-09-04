@@ -26,6 +26,7 @@ namespace medievalworldweb.Repository
 
         public async Task UpdateCharacters(Character[] characters)
         {
+        //update comment
             await UpdateChanges(characters);
         }
 
