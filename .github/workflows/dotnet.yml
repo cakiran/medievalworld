@@ -1,0 +1,15 @@
+name: My First Workflow
+
+on:
+  push:            # Trigger: when code is pushed
+    branches: [ main ]
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest  # Runner environment (VM)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Print message
+        run: echo "Hello from GitHub Actions!"
