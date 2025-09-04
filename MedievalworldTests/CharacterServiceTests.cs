@@ -53,6 +53,7 @@ namespace MedievalworldTests
             //act
             var res = await _target.GetCharacterById(It.IsAny<int>());
             //assert
+            //New comment
             Assert.That(res.Success == false);
         }
     }
