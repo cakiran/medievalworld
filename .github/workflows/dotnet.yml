@@ -2,7 +2,7 @@ name: My First Workflow
 
 on:
   push:            # Trigger: when code is pushed
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   say-hello:
